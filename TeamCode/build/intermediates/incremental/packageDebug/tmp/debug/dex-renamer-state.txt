@@ -1,0 +1,4 @@
+#Mon May 13 17:35:42 CDT 2019
+base.0=C\:\\code\\ftc_app_3409_RoverRuckus2\\TeamCode\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+path.0=classes.dex
+renamed.0=classes.dex
