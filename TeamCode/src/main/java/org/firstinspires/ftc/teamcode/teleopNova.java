@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 
 @TeleOp(name="Nova Teleop", group="Teleop")
 public class teleopNova extends OpMode {
@@ -17,8 +18,16 @@ public class teleopNova extends OpMode {
     boolean manualReloadIsRunning = false;
     boolean manualReloadIsFinishing = false;
 
+    public DigitalChannel digChan, clockChan;
+    GPIO_Messager messagerThread;
+
     @Override
     public void init(){
+        //digChan = hardwareMap.digitalChannel.get("digChan");
+        //clockChan = hardwareMap.digitalChannel.get("clockChan");
+
+        //messagerThread.start();
+
         robotBase = new RobotBaseNova();
         robotBase.init(hardwareMap, this);
         robotBase.setReloadAfterShot(true);
@@ -70,7 +79,24 @@ public class teleopNova extends OpMode {
             }
         }
 
+        if(gamepad1.dpad_up){
+            robotBase.motorLifterLeft.setPower(-0.75);
+            robotBase.motorLifterRight.setPower(0.75);
+        } else if (gamepad1.dpad_down){
+            robotBase.motorLifterLeft.setPower(0.75);
+            robotBase.motorLifterRight.setPower(-0.75);
+        } else {
+            robotBase.motorLifterLeft.setPower(0);
+            robotBase.motorLifterRight.setPower(0);
+        }
+
         //Set power based on the joysticks, set 'slow mode' based on right bumper
         robotBase.updateDriveMotors(-gamepad1.left_stick_y, -gamepad1.right_stick_y, gamepad1.right_bumper);
     }
+    /*public void setSignalState(boolean state){
+        digChan.setState(state);
+    }
+    public void setClockState(boolean state){
+        clockChan.setState(state);
+    }*/
 }
